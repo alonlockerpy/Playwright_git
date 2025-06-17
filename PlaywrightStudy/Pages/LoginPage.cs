@@ -19,7 +19,14 @@ public class LoginPage
         _password = _page.Locator("#Password");
         _btnLogin = _page.Locator(selector: "text=Log in");
         _linkEmployeeDetails = _page.Locator(selector: "text='Employee Details'");
-        
-
     }
+    public async Task ClickLogin() => await _linkLogin.ClickAsync();
+    public async Task Login(string userName, string password)
+    {
+        await _userName.FillAsync(userName);
+        await _password.FillAsync(password);
+        await _btnLogin.ClickAsync();
+    }
+    public async Task<bool> IsEmployeeDetailsExists() => await _linkEmployeeDetails.IsVisibleAsync();
+    
 }
