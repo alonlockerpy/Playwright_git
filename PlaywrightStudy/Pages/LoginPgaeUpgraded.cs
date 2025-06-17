@@ -1,6 +1,7 @@
 using Microsoft.Playwright;
 
 namespace PlaywrightDemo.Pages;
+
 public class LoginPgaeUpgraded
 {
     private IPage _page;
@@ -10,8 +11,19 @@ public class LoginPgaeUpgraded
     private ILocator _password => _page.Locator(selector: "#Password");
     private ILocator _btnLogin => _page.Locator(selector: "text=Log in");
     private ILocator _linkEmployeeDetails => _page.Locator(selector: "text='Employee Details'");
-    public async Task ClickLogin() => await _linkLogin.ClickAsync();
-    public async Task Login(string userName, string password)
+
+    //Validate /Login url after login link click
+    public async Task ClickLogin()
+    {
+        await _page.RunAndWaitForNavigationAsync(async () => 
+            { await _linkLogin.ClickAsync(); },
+            new PageRunAndWaitForNavigationOptions
+            {
+                UrlString = "**/Login"
+            });
+    }
+
+public async Task Login(string userName, string password)
     {
         await _userName.FillAsync(userName);
         await _password.FillAsync(password);
