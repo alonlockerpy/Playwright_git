@@ -28,5 +28,4 @@ public class LoginPage
         await _btnLogin.ClickAsync();
     }
     public async Task<bool> IsEmployeeDetailsExists() => await _linkEmployeeDetails.IsVisibleAsync();
-    
 }

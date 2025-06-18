@@ -3,6 +3,8 @@ using Microsoft.Playwright.NUnit;
 
 namespace PlaywrightDemo;
 
+//Add For running all tests (using NUnit PageTest) in paralell mode 
+//[Parallelizable(ParallelScope.Self)]
 public class NUnitPlaywriteTests : PageTest
 {
     [SetUp]

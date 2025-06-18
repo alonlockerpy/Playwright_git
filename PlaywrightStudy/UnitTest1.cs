@@ -32,7 +32,28 @@ public class PlaywriteTests
     //    Assert.IsTrue(isExsit);
     //}
 
-    public async Task TestWithPOM()
+    //public async Task TestWithPOM()
+    //{
+    //    //playwrite driver
+    //    using var playwright = await Playwright.CreateAsync();
+    //    //Browser
+    //    await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+    //    {
+    //        Headless = false
+    //    });
+    //    //page
+    //    var page = await browser.NewPageAsync();
+    //    //LoginPage loginPage = new LoginPage(page);
+    //    LoginPgaeUpgraded loginPage = new LoginPgaeUpgraded(page);
+    //    await page.GotoAsync(url: "http://www.eaapp.somee.com");
+    //    await loginPage.ClickLogin();
+    //    await loginPage.Login(userName: "admin", password: "password");
+
+    //    var isExsit = await loginPage.IsEmployeeDetailsExists();
+    //    Assert.IsTrue(isExsit);
+    //}
+    
+    public async Task TestNetwork()
     {
         //playwrite driver
         using var playwright = await Playwright.CreateAsync();
@@ -43,13 +64,18 @@ public class PlaywriteTests
         });
         //page
         var page = await browser.NewPageAsync();
-        //LoginPage loginPage = new LoginPage(page);
-        LoginPgaeUpgraded loginPage = new LoginPgaeUpgraded(page);
         await page.GotoAsync(url: "http://www.eaapp.somee.com");
+        
+        var loginPage = new LoginPgaeUpgraded(page);
         await loginPage.ClickLogin();
         await loginPage.Login(userName: "admin", password: "password");
 
+        var waitResponse =  page.WaitForRequestAsync("**/Employee");
+        await loginPage.ClickLinkEmployeeDetails();
+        var getResponse =  await waitResponse;
+        
         var isExsit = await loginPage.IsEmployeeDetailsExists();
         Assert.IsTrue(isExsit);
+
     }
 }
