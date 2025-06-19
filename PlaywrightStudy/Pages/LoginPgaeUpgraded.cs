@@ -11,7 +11,7 @@ public class LoginPgaeUpgraded
     private ILocator _password => _page.Locator(selector: "#Password");
     private ILocator _btnLogin => _page.Locator(selector: "text=Log in");
     private ILocator _linkEmployeeDetails => _page.Locator(selector: "text='Employee Details'");
-    private ILocator _linkEmployeeList => _page.Locator(selector: "text='Employee Details'");
+    private ILocator _linkEmployeeList => _page.Locator(selector: "text='Employee List'");
 
     //Validate /Login url after login link click
     public async Task ClickLogin()
@@ -30,5 +30,5 @@ public class LoginPgaeUpgraded
         await _btnLogin.ClickAsync();
     }
     public async Task<bool> IsEmployeeDetailsExists() => await _linkEmployeeDetails.IsVisibleAsync();
-    public async Task ClickLinkEmployeeDetails() => await _linkEmployeeList.ClickAsync();
+    public async Task ClickLinkEmployeeList() => await _linkEmployeeList.ClickAsync();
 }

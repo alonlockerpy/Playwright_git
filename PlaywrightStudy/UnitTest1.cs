@@ -70,9 +70,10 @@ public class PlaywriteTests
         await loginPage.ClickLogin();
         await loginPage.Login(userName: "admin", password: "password");
 
-        var waitResponse =  page.WaitForRequestAsync("**/Employee");
-        await loginPage.ClickLinkEmployeeDetails();
-        var getResponse =  await waitResponse;
+        await page.RunAndWaitForResponseAsync(async () =>
+        {
+            await loginPage.ClickLinkEmployeeList();
+        }, response => response.Url.Contains("/Employee") && response.Status == 200);
         
         var isExsit = await loginPage.IsEmployeeDetailsExists();
         Assert.IsTrue(isExsit);
